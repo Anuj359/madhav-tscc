@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
       form.reset();
     } catch (error) {
       console.error('Error submitting form:', error);
-      showToast("Failed to submit. Please try again later.", "error");
+      showToast("Failed to submit. Please try again later." + error.message, "error");
     }
   });
 
