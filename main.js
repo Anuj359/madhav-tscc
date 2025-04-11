@@ -1,4 +1,3 @@
-
 document.getElementById('query-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const formData = new FormData(e.target);
@@ -9,15 +8,15 @@ document.getElementById('query-form').addEventListener('submit', async (e) => {
     timestamp: new Date().toISOString()
   };
 
-  const csvLine = `"\${entry.name}","\${entry.email}","\${entry.phone}","\${entry.timestamp}"\n`;
+  const csvLine = `"${entry.name}","${entry.email}","${entry.phone}","${entry.timestamp}"\n`;
 
-  const repo = 'YOUR_GITHUB_USERNAME/YOUR_REPO_NAME';
+  const repo = 'Anuj359/madhav-tscc';
   const filePath = 'queries.csv';
-  const token = 'YOUR_GITHUB_PERSONAL_ACCESS_TOKEN';
+  const token = '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';
 
-  const getFile = await fetch(`https://api.github.com/repos/\${repo}/contents/\${filePath}`, {
+  const getFile = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
     headers: {
-      Authorization: `token \${token}`
+      Authorization: `token ${token}`
     }
   });
 
@@ -25,10 +24,10 @@ document.getElementById('query-form').addEventListener('submit', async (e) => {
   const content = atob(fileData.content);
   const updatedContent = btoa(content + csvLine);
 
-  await fetch(`https://api.github.com/repos/\${repo}/contents/\${filePath}`, {
+  await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
     method: 'PUT',
     headers: {
-      Authorization: `token \${token}`,
+      Authorization: `token ${token}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({

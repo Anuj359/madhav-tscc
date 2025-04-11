@@ -163,42 +163,43 @@
   </footer>
 
   <script>
-    const form = document.getElementById('queryForm');
-    const toast = document.getElementById('toast');
+    src="main.js"
+    // const form = document.getElementById('queryForm');
+    // const toast = document.getElementById('toast');
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
+    // form.addEventListener('submit', function(e) {
+    //   e.preventDefault();
 
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const phone = document.getElementById('phone').value.trim();
+    //   const name = document.getElementById('name').value.trim();
+    //   const email = document.getElementById('email').value.trim();
+    //   const phone = document.getElementById('phone').value.trim();
 
-      if (!name || !email || !phone.match(/^[0-9]{10}$/)) {
-        alert("Please enter valid details.");
-        return;
-      }
+    //   if (!name || !email || !phone.match(/^[0-9]{10}$/)) {
+    //     alert("Please enter valid details.");
+    //     return;
+    //   }
 
-      // Simulate successful submission
-      showToast("Query submitted successfully!");
+    //   // Simulate successful submission
+    //   showToast("Query submitted successfully!");
 
-      // Optionally reset form
-      form.reset();
-    });
+    //   // Optionally reset form
+    //   form.reset();
+    // });
 
-    function showToast(message) {
-      toast.innerText = message;
-      toast.style.display = 'block';
-      toast.style.opacity = '0';
+    // function showToast(message) {
+    //   toast.innerText = message;
+    //   toast.style.display = 'block';
+    //   toast.style.opacity = '0';
 
-      setTimeout(() => {
-        toast.style.opacity = '1';
-      }, 100);
+    //   setTimeout(() => {
+    //     toast.style.opacity = '1';
+    //   }, 100);
 
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        setTimeout(() => toast.style.display = 'none', 500);
-      }, 3000);
-    }
+    //   setTimeout(() => {
+    //     toast.style.opacity = '0';
+    //     setTimeout(() => toast.style.display = 'none', 500);
+    //   }, 3000);
+    // }
   </script>
 
 </body>
