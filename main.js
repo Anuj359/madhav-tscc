@@ -2,8 +2,11 @@
 console.log("Script loaded");
 alert("Script loaded");
 document.addEventListener('DOMContentLoaded', () => {
-  console.log("DOM fully loaded");
-  
+  console.log("DOM fully loaded XYZ");
+  console.log("Test Token")
+  testGitHubToken();
+  // Create a simple function to test your token
+
   // Get elements
   const form = document.getElementById('queryForm');
   const toast = document.getElementById('toast');
@@ -47,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const repo = 'Anuj359/madhav-tscc';
     const filePath = 'queries.csv';
-    const token = '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'; // Replace with your actual token
+    const token = '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';
     
     try {
       console.log("Sending request to GitHub API...");
@@ -83,7 +86,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const updatedContent = btoa(content + csvLine);
       
       console.log("Updating file on GitHub...");
-      
+      // Add this to your code where you're making the GitHub API request
+      console.log("Using token:", token.substring(0, 4) + "..." + token.substring(token.length - 4)); // Logs just the beginning and end for security
       // Create or update file on GitHub
       const updateResponse = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
         method: 'PUT',
@@ -137,5 +141,30 @@ document.addEventListener('DOMContentLoaded', () => {
       toast.style.opacity = '0';
       setTimeout(() => toast.style.display = 'none', 500);
     }, 3000);
+  }
+  function testGitHubToken() {
+    const token = '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'; // Replace with your token
+    
+    fetch('https://api.github.com/repos/Anuj359/madhav-tscc', {
+      headers: {
+        Authorization: `token ${token}`
+      }
+    })
+    .then(response => {
+      console.log("Test response status:", response.status);
+      if (response.ok) {
+        response.json().then(data => {
+          console.log("Repository exists:", data.name);
+          alert("Token works with this repository!");
+        });
+      } else {
+        console.error("Error accessing repository:", response.status);
+        alert("Token doesn't work with this repository!");
+      }
+    })
+    .catch(error => {
+      console.error("Network error:", error);
+      alert("Network error testing token!");
+    });
   }
 });
