@@ -28,15 +28,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const repo = 'Anuj359/madhav-tscc';
     const filePath = 'queries.csv';
-    const token = 'YOUR_GITHUB_TOKEN'; // Replace with your token in production
+    const token = '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'; // Replace with your token in production
+
+    const trimmedToken = token.trim();
+    headers.Authorization = `token ${trimmedToken}`;
+
+    const headers = {
+      Authorization: `token ${token}`,
+      Accept: 'application/vnd.github.v3+json'
+    };
 
     try {
       // Fetch existing file
-      const getFile = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
-        headers: {
-          Authorization: `token ${token}`
-        }
-      });
+      const getFile = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, { headers });
 
       if (!getFile.ok) {
         throw new Error(`GitHub API error: ${getFile.status}`);
