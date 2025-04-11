@@ -1,3 +1,6 @@
+// Add to top of main.js
+console.log("Script loaded");
+alert("Script loaded");
 document.addEventListener('DOMContentLoaded', () => {
   console.log("DOM fully loaded");
   
@@ -12,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return;
   }
   
-  form.addEventListener('submit', async (e) => {
+  form.addEventListener('submit', async function(e) {
     console.log("Form submission triggered");
     e.preventDefault();
     
@@ -28,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
     
-    // Show that we're processing
+    // Show processing message
     console.log("Processing submission...");
     showToast("Processing your submission...");
 
@@ -49,32 +52,29 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       console.log("Sending request to GitHub API...");
       
-      // Define headers for all requests
-      const requestHeaders = {
-        Authorization: `token ${token}`,
-        Accept: 'application/vnd.github.v3+json'
-      };
+      // Fetch existing file
+      const getFileResponse = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
+        headers: {
+          Authorization: `token ${token}`,
+          Accept: 'application/vnd.github.v3+json'
+        }
+      });
       
-      // Fetch existing file or create new
+      console.log("GitHub API response status:", getFileResponse.status);
+      
       let content = '';
       let sha = null;
       
-      const getFile = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
-        headers: requestHeaders
-      });
-      
-      console.log("GitHub API response status:", getFile.status);
-      
-      if (getFile.status === 404) {
+      if (getFileResponse.status === 404) {
         // File doesn't exist, will create new
         console.log("File doesn't exist yet, will create new file");
-      } else if (getFile.status === 401) {
+      } else if (getFileResponse.status === 401) {
         throw new Error("GitHub authentication failed. Check your token.");
-      } else if (!getFile.ok) {
-        throw new Error(`GitHub API error: ${getFile.status}`);
+      } else if (!getFileResponse.ok) {
+        throw new Error(`GitHub API error: ${getFileResponse.status}`);
       } else {
         // File exists
-        const fileData = await getFile.json();
+        const fileData = await getFileResponse.json();
         content = atob(fileData.content);
         sha = fileData.sha;
         console.log("Existing file found with SHA:", sha);
@@ -88,7 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const updateResponse = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
         method: 'PUT',
         headers: {
-          ...requestHeaders,
+          Authorization: `token ${token}`,
+          Accept: 'application/vnd.github.v3+json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
