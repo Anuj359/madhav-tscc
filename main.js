@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const repo = 'Anuj359/madhav-tscc';
     const filePath = 'queries.csv';
-    const token = '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'; // Replace with your actual token
+    const token = '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'; // Replace with your actual token
     
     try {
       console.log("Sending request to GitHub API...");
