@@ -1,20 +1,36 @@
 document.addEventListener('DOMContentLoaded', () => {
+  console.log("DOM fully loaded");
+  
   // Get elements
   const form = document.getElementById('queryForm');
   const toast = document.getElementById('toast');
-
+  
+  console.log("Form element:", form);
+  
+  if (!form) {
+    console.error("Form with ID 'queryForm' not found!");
+    return;
+  }
+  
   form.addEventListener('submit', async (e) => {
+    console.log("Form submission triggered");
     e.preventDefault();
     
-    // Validate form data
+    // Get form values
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
+    
+    console.log("Form data:", { name, email, phone });
 
     if (!name || !email || !phone.match(/^[0-9]{10}$/)) {
       alert("Please enter valid details.");
       return;
     }
+    
+    // Show that we're processing
+    console.log("Processing submission...");
+    showToast("Processing your submission...");
 
     // Prepare data for GitHub
     const entry = {
@@ -28,57 +44,80 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const repo = 'Anuj359/madhav-tscc';
     const filePath = 'queries.csv';
-    const token = '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'; // Replace with your token in production
-
-    const trimmedToken = token.trim();
-    headers.Authorization = `token ${trimmedToken}`;
-
-    const headers = {
-      Authorization: `token ${token}`,
-      Accept: 'application/vnd.github.v3+json'
-    };
-
+    const token = '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'; // Replace with your actual token
+    
     try {
-      // Fetch existing file
-      const getFile = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, { headers });
-
-      if (!getFile.ok) {
+      console.log("Sending request to GitHub API...");
+      
+      // Define headers for all requests
+      const requestHeaders = {
+        Authorization: `token ${token}`,
+        Accept: 'application/vnd.github.v3+json'
+      };
+      
+      // Fetch existing file or create new
+      let content = '';
+      let sha = null;
+      
+      const getFile = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
+        headers: requestHeaders
+      });
+      
+      console.log("GitHub API response status:", getFile.status);
+      
+      if (getFile.status === 404) {
+        // File doesn't exist, will create new
+        console.log("File doesn't exist yet, will create new file");
+      } else if (getFile.status === 401) {
+        throw new Error("GitHub authentication failed. Check your token.");
+      } else if (!getFile.ok) {
         throw new Error(`GitHub API error: ${getFile.status}`);
+      } else {
+        // File exists
+        const fileData = await getFile.json();
+        content = atob(fileData.content);
+        sha = fileData.sha;
+        console.log("Existing file found with SHA:", sha);
       }
-
-      const fileData = await getFile.json();
-      const content = atob(fileData.content);
+      
       const updatedContent = btoa(content + csvLine);
-
-      // Update file on GitHub
+      
+      console.log("Updating file on GitHub...");
+      
+      // Create or update file on GitHub
       const updateResponse = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
         method: 'PUT',
         headers: {
-          Authorization: `token ${token}`,
+          ...requestHeaders,
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           message: 'Add new query entry',
           content: updatedContent,
-          sha: fileData.sha
+          sha: sha
         })
       });
-
+      
+      console.log("Update response status:", updateResponse.status);
+      
       if (!updateResponse.ok) {
-        throw new Error(`GitHub update error: ${updateResponse.status}`);
+        const errorData = await updateResponse.json();
+        console.error("GitHub error details:", errorData);
+        throw new Error(`GitHub update failed: ${updateResponse.status}`);
       }
-
-      // Show success message
+      
+      console.log("Submission successful!");
       showToast("Query submitted successfully!");
       form.reset();
     } catch (error) {
       console.error('Error submitting form:', error);
-      showToast("Failed to submit. Please try again later." + error.message, "error");
+      showToast("Failed to submit: " + error.message, "error");
     }
   });
 
   // Toast notification function
   function showToast(message, type = "success") {
+    console.log("Showing toast:", message);
     toast.innerText = message;
     if (type === "error") {
       toast.style.backgroundColor = "#f44336";
