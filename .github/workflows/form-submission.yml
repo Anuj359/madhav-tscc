@@ -1,0 +1,49 @@
+name: Form Submission Handler
+
+on:
+  repository_dispatch:
+    types: [form_submission]
+
+jobs:
+  add-form-data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Process Form Submission
+        run: |
+          # Get the submission data from the event payload
+          NAME="${{ github.event.client_payload.name }}"
+          EMAIL="${{ github.event.client_payload.email }}"
+          PHONE="${{ github.event.client_payload.phone }}"
+          TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          
+          # Create CSV line
+          CSV_LINE="\"$NAME\",\"$EMAIL\",\"$PHONE\",\"$TIMESTAMP\""
+          
+          # Check if the CSV file exists
+          if [ -f "queries.csv" ]; then
+            # Append to existing file
+            echo $CSV_LINE >> queries.csv
+          else
+            # Create new file with header
+            echo "\"Name\",\"Email\",\"Phone\",\"Timestamp\"" > queries.csv
+            echo $CSV_LINE >> queries.csv
+          fi
+          
+          # Configure Git
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          
+          # Commit and push changes
+          git add queries.csv
+          git commit -m "Add form submission from $NAME"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>TSCC | Coming Soon</title>
-    <link rel="stylesheet" href="style.css" />
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TSCC | Coming Soon</title>
+  <link rel="stylesheet" href="style.css" />
   <style>
-    .container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
+    /* * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    } */
 
-    /* body {
+    body {
       height: 100%;
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -22,7 +20,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-    } */
+    }
 
     .wrapper {
       flex: 1;
@@ -42,7 +40,6 @@
     }
 
     header {
-      align-items: center;
       margin-bottom: 1rem;
       color: #fff;
       text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
@@ -131,67 +128,79 @@
         margin: 0 1rem;
       }
     }
-
-    body {
-      margin: 0;
-      height: 3000px; /* Make it long enough to scroll */
-      background-image: url('assets/bg.jpg'); /* Default image */
-      background-size: cover;
-      background-attachment: fixed;
-      background-repeat: no-repeat;
-      background-position: center;
-      transition: background-image 0.5s ease-in-out;
-    }
-
-    .content {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 3rem;
-      font-family: sans-serif;
-      text-shadow: 1px 1px 5px black;
-    }
   </style>
 </head>
 <body>
-    <div class="header">
-        <header>
-            <h1>T S CONSTRUCTION COMPANY</h1>
-            <p>Founded by Trilok Singh | Head Manager: Madhav Chaudhary | Based in Delhi</p>
-            </header>
-        </div>
-  <div class="content">Scroll Down</div>
-  <div class="content">Guess WHAT?</div>
-  <div class="content">We are EXCITED to Tell You</div>
-  <div class="content">That</div>
-  <div class="content">WE ARE COMING SOON </div>
-  <div class="content">See you Soon!</div>
+
+  <div class="header">
+    <header>
+      <h1>T S CONSTRUCTION COMPANY</h1>
+      <p>Founded by Trilok Singh | Head Manager: Madhav Chaudhary | Based in Delhi</p>
+    </header>
+
+    <main>
+      <section class="coming-soon">
+        <h2>We're Building Something Awesome!</h2>
+        <p>Stay tuned — We're coming soon.</p>
+      </section>
+
+      <div class="form-container">
+        <h2>Drop us a Query 🚧</h2>
+        <form id="queryForm" data-netlify="true" name="contact">
+          <input type="text" id="name" placeholder="Full Name" required />
+          <input type="email" id="email" placeholder="Email Address" required />
+          <input type="tel" id="phone" placeholder="Phone Number" pattern="[0-9]{10}" required />
+          <button type="submit" id="submitBtn">Submit</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" style="display: none;">Query submitted successfully!</div>
 
   <footer class="footer">
     <p>&copy; 2025 T S CONSTRUCTION COMPANY. All rights reserved.</p>
   </footer>
 
-  <script>
-    const images = [
-      'assets/image1.jpg',
-      'assets/image2.jpg',
-      'assets/image3.jpg',
-      'assets/image4.jpg',
-      'assets/image5.jpg',
-      'assets/image6.jpg'
-    ];
+  <script src="main.js"></script>
+  <!-- <script> -->
+    // const form = document.getElementById('queryForm');
+    // const toast = document.getElementById('toast');
 
-    window.addEventListener("scroll", () => {
-      const scrollTop = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const sectionIndex = Math.floor(scrollTop / windowHeight);
+    // form.addEventListener('submit', function(e) {
+    //   e.preventDefault();
 
-      const imgIndex = Math.min(sectionIndex, images.length - 1);
-      document.body.style.backgroundImage = `url('${images[imgIndex]}')`;
-    });
-  </script>
+    //   const name = document.getElementById('name').value.trim();
+    //   const email = document.getElementById('email').value.trim();
+    //   const phone = document.getElementById('phone').value.trim();
+
+    //   if (!name || !email || !phone.match(/^[0-9]{10}$/)) {
+    //     alert("Please enter valid details.");
+    //     return;
+    //   }
+
+    //   // Simulate successful submission
+    //   showToast("Query submitted successfully!");
+
+    //   // Optionally reset form
+    //   form.reset();
+    // });
+
+    // function showToast(message) {
+    //   toast.innerText = message;
+    //   toast.style.display = 'block';
+    //   toast.style.opacity = '0';
+
+    //   setTimeout(() => {
+    //     toast.style.opacity = '1';
+    //   }, 100);
+
+    //   setTimeout(() => {
+    //     toast.style.opacity = '0';
+    //     setTimeout(() => toast.style.display = 'none', 500);
+    //   }, 3000);
+    // }
+  <!-- </script> -->
 
 </body>
 </html>

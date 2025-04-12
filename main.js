@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log("Test Token")
   testGitHubToken();
   // Create a simple function to test your token
-
+  const token = config.githubToken;
   // Get elements
   const form = document.getElementById('queryForm');
   const toast = document.getElementById('toast');
@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const repo = 'Anuj359/madhav-tscc';
     const filePath = 'queries.csv';
-    const token = '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';
+    // const token = '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';
     
     try {
       console.log("Sending request to GitHub API...");
@@ -58,8 +58,9 @@ document.addEventListener('DOMContentLoaded', () => {
       // Fetch existing file
       const getFileResponse = await fetch(`https://api.github.com/repos/${repo}/contents/${filePath}`, {
         headers: {
-          Authorization: `token ${token}`,
-          Accept: 'application/vnd.github.v3+json'
+          'Accept': 'application/vnd.github.v3+json',
+          'Content-Type': 'application/json',
+          'Authorization': `token ${token}`
         }
       });
       
@@ -143,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 3000);
   }
   function testGitHubToken() {
-    const token = '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'; // Replace with your token
+    // const token = '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'; // Replace with your token
     
     fetch('https://api.github.com/repos/Anuj359/madhav-tscc', {
       headers: {
