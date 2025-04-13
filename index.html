@@ -23,6 +23,19 @@
       display: flex;
       flex-direction: column;
     } */
+
+    .form-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* Full viewport height */
+      width: 100vw;  /*Full viewport width */
+      position: flex;
+      top: 0;
+      left: 0;
+      z-index: 10; /* Keep it above background */
+    } 
+
     .form-container {
       background: rgba(255, 255, 255, 0.95);
       padding: 2rem;
@@ -74,17 +87,7 @@
       margin-bottom: 0.5rem;
     } */
 
-    .form-container {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      max-width: 400px;
-      width: 100%;
-      animation: slideUp 0.6s ease-in;
-    }
-
-    input, button {
+    input, button, textarea {
       width: 100%;
       padding: 10px;
       margin-top: 1rem;
@@ -161,6 +164,14 @@
       font-family: sans-serif;
       text-shadow: 1px 1px 5px black;
     }
+    .blinking {
+    animation: blink 3s infinite;
+  }
+
+  @keyframes blink {
+    0%, 50%, 100% { opacity: 0.3; }
+    25%, 75% { opacity: 0; }
+  }
   </style>
 </head>
 <body>
@@ -170,27 +181,29 @@
             <p>Founded by Trilok Singh | Head Manager: Madhav Chaudhary | Based in Delhi</p>
             </header>
         </div>
-  <div class="content">Scroll Down</div>
-  <div class="content">Have a Query?</div>
-  <div class="form-container">
-    <h2>Drop us your Query 🚧</h2>
+  <div class="content blinking" style="transform: rotate(90deg);"> > </div>
+  <div class="content">Have a Query? </div>
+  <div class="form-wrapper">
+    <div class="form-container">
+      <h2>Drop us your Query 🚧</h2>
 
-    <form action="https://api.staticforms.xyz/submit" method="POST">
-      <input type="hidden" name="apiKey" value="sf_hj0h55l4b875dka92mi4bj9f" />
-      <input type="hidden" name="redirectTo" value="https://tscc.co.in/thank-you.html">
-    
-      <input type="text" name="name" placeholder="Full Name" required />
-      <input type="email" name="email" placeholder="Email Address" required />
-      <input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required />
-      <textarea name="message" placeholder="Message" required></textarea>
-        <!-- reCAPTCHA if enabled -->
-        <div class="g-recaptcha" data-sitekey="6LdtIhcrAAAAADjq-ysNga9cDiRWcW00CEwx1J9L"></div>
-        <button type="submit">Submit</button>
-      </form>
+      <form action="https://api.staticforms.xyz/submit" method="POST">
+        <input type="hidden" name="apiKey" value="sf_hj0h55l4b875dka92mi4bj9f" />
+        <input type="hidden" name="redirectTo" value="https://tscc.co.in/thank-you.html">
       
-      <!-- Load reCAPTCHA script if using it -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-</div>
+        <input type="text" name="name" placeholder="Full Name" required />
+        <input type="email" name="email" placeholder="Email Address" required />
+        <input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required />
+        <textarea name="message" placeholder="Message" rows="5" required></textarea>
+          <!-- reCAPTCHA if enabled -->
+          <div class="g-recaptcha" data-sitekey="6LdtIhcrAAAAADjq-ysNga9cDiRWcW00CEwx1J9L"></div>
+          <button type="submit">Submit</button>
+        </form>
+        
+        <!-- Load reCAPTCHA script if using it -->
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    </div>
+  </div>
   <div class="content">We are EXCITED to Tell You</div>
 
 
