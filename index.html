@@ -6,210 +6,223 @@
     <title>TSCC | Coming Soon</title>
     <link rel="stylesheet" href="style.css" />
 
-  <style>
-    .container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    /* body {
-      height: 100%;
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: url('assets/bg.jpg') no-repeat center center/cover;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    } */
-
-    .form-wrapper {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh; /* Full viewport height */
-      width: 100vw;  /*Full viewport width */
-      position: flex;
-      top: 0;
-      left: 0;
-      z-index: 10; /* Keep it above background */
-    } 
-
-    .form-container {
-      background: rgba(255, 255, 255, 0.95);
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      max-width: 400px;
-      width: 100%;
-      animation: slideUp 0.6s ease-in;
-    }
-    .wrapper {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 1rem;
-    }
-
-    main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    header {
-      align-items: center;
-      margin-bottom: 1rem;
-      color: #fff;
-      text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
-    }
-
-    header h1 {
-      font-size: 2rem;
-    }
-
-    header p {
-      font-size: 1rem;
-    }
-
-    /* .coming-soon {
-      margin-bottom: 1.5rem;
-    }
-
-    .coming-soon h2 {
-      color: #e76f51;
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-    } */
-
-    input, button, textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 1rem;
-      font-size: 1rem;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      background-color: #ffb703;
-      border: none;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-
-    button:hover {
-      background-color: #f4a300;
-    }
-
-    .toast {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #4BB543;
-      color: white;
-      padding: 1rem 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      opacity: 0;
-      animation: toastFadeIn 0.5s forwards;
-    }
-
-    footer {
-      background: rgba(0, 0, 0, 0.8);
-      color: white;
-      padding: 1rem;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    @keyframes toastFadeIn {
-      to { opacity: 1; }
-    }
-
-    @media (max-width: 480px) {
-      .form-container {
-        margin: 0 1rem;
+    <style>
+      * {
+        box-sizing: border-box;
       }
-    }
 
-    body {
-      margin: 0;
-      height: 3000px; /* Make it long enough to scroll */
-      background-image: url('assets/bg.jpg'); /* Default image */
-      background-size: cover;
-      background-attachment: fixed;
-      background-repeat: no-repeat;
-      background-position: center;
-      transition: background-image 0.5s ease-in-out;
-    }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-image: url('assets/bg.jpg');
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        background-position: center;
+        transition: background-image 0.5s ease-in-out;
+      }
 
-    .content {
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: white;
-      font-size: 3rem;
-      font-family: sans-serif;
-      text-shadow: 1px 1px 5px black;
-    }
-    .blinking {
-    animation: blink 3s infinite;
-  }
+      .bg-section {
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-  @keyframes blink {
-    0%, 50%, 100% { opacity: 0.3; }
-    25%, 75% { opacity: 0; }
-  }
-  </style>
+      .container, main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .form-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100vw;
+        position: relative;
+        z-index: 10;
+        padding: 1rem;
+      }
+
+      .form-container {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        max-width: 400px;
+        width: 100%;
+        animation: slideUp 0.6s ease-in;
+      }
+
+      .wrapper, .content {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 1rem;
+      }
+
+      .content {
+        color: white;
+        font-size: 3rem;
+        font-family: sans-serif;
+        text-shadow: 1px 1px 5px black;
+      }
+
+      header {
+        text-align: center;
+        margin: 2rem 1rem 1rem;
+        color: #fff;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+      }
+
+      header h1 {
+        font-size: 2rem;
+        margin: 0.5rem 0;
+      }
+
+      header p {
+        font-size: 1rem;
+        margin: 0;
+      }
+
+      input, button, textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 1rem;
+        font-size: 1rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+      }
+
+      button {
+        background-color: #ffb703;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+      }
+
+      button:hover {
+        background-color: #f4a300;
+      }
+
+      .toast {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background-color: #4BB543;
+        color: white;
+        padding: 1rem 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        opacity: 0;
+        animation: toastFadeIn 0.5s forwards;
+      }
+
+      .blinking {
+        animation: blink 3s infinite;
+      }
+
+      footer {
+        background: rgba(0, 0, 0, 0.8);
+        color: white;
+        padding: 1rem;
+        text-align: center;
+        font-size: 0.9rem;
+      }
+
+      @keyframes slideUp {
+        from { transform: translateY(40px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+
+      @keyframes toastFadeIn {
+        to { opacity: 1; }
+      }
+
+      @keyframes blink {
+        0%, 50%, 100% { opacity: 0.3; }
+        25%, 75% { opacity: 0; }
+      }
+
+      @media (max-width: 768px) {
+        .content {
+          font-size: 2rem;
+        }
+        header h1 {
+          font-size: 1.5rem;
+        }
+        header p {
+          font-size: 0.9rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .form-container {
+          margin: 0 1rem;
+          padding: 1.5rem;
+        }
+        .content {
+          font-size: 1.5rem;
+        }
+        header h1 {
+          font-size: 1.2rem;
+        }
+        header p {
+          font-size: 0.8rem;
+        }
+      }
+    </style>
 </head>
 <body>
-    <div class="header">
-        <header>
-            <h1>T S CONSTRUCTION COMPANY</h1>
-            <p>Founded by Trilok Singh | Head Manager: Madhav Chaudhary | Based in Delhi</p>
-            </header>
-        </div>
-  <div class="content blinking" style="transform: rotate(90deg);"> > </div>
-  <div class="content">Have a Query? </div>
-  <div class="form-wrapper">
+  <div class="header">
+    <header>
+      <h1>T S CONSTRUCTION COMPANY</h1>
+      <p>Founded by Trilok Singh | Head Manager: Madhav Chaudhary | Based in Delhi</p>
+    </header>
+  </div>
+
+  <div class="bg-section">
+    <div class="content blinking" style="transform: rotate(90deg);"> > </div>
+  </div>
+  <div class="bg-section">
+    <div class="content">Have a Query? </div>
+  </div>
+  <div class="form-wrapper bg-section">
     <div class="form-container">
       <h2>Drop us your Query 🚧</h2>
-
       <form action="https://api.staticforms.xyz/submit" method="POST">
         <input type="hidden" name="apiKey" value="sf_hj0h55l4b875dka92mi4bj9f" />
         <input type="hidden" name="redirectTo" value="https://tscc.co.in/thank-you.html">
-      
         <input type="text" name="name" placeholder="Full Name" required />
         <input type="email" name="email" placeholder="Email Address" required />
         <input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required />
         <textarea name="message" placeholder="Message" rows="5" required></textarea>
-          <!-- reCAPTCHA if enabled -->
-          <div class="g-recaptcha" data-sitekey="6LdtIhcrAAAAADjq-ysNga9cDiRWcW00CEwx1J9L"></div>
-          <button type="submit">Submit</button>
-        </form>
-        
-        <!-- Load reCAPTCHA script if using it -->
+        <div class="g-recaptcha" data-sitekey="6LdtIhcrAAAAADjq-ysNga9cDiRWcW00CEwx1J9L"></div>
+        <button type="submit">Submit</button>
+      </form>
       <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     </div>
   </div>
-  <div class="content">We are EXCITED to Tell You</div>
-
-
-  <div class="content">That</div>
-  <div class="content">WE ARE COMING SOON </div>
-  <div class="content">See you Soon!</div>
+  <div class="bg-section">
+    <div class="content">We are EXCITED to Tell You</div>
+  </div>
+  <div class="bg-section">
+    <div class="content">That</div>
+  </div>
+  <div class="bg-section">
+    <div class="content">WE ARE COMING SOON </div>
+  </div>
+  <div class="bg-section">
+    <div class="content">See you Soon!</div>
+  </div>
+  
 
   <footer class="footer">
     <p>&copy; 2025 T S CONSTRUCTION COMPANY. All rights reserved.</p>
@@ -229,11 +242,9 @@
       const scrollTop = window.scrollY;
       const windowHeight = window.innerHeight;
       const sectionIndex = Math.floor(scrollTop / windowHeight);
-
       const imgIndex = Math.min(sectionIndex, images.length - 1);
       document.body.style.backgroundImage = `url('${images[imgIndex]}')`;
     });
   </script>
-
 </body>
 </html>
